@@ -57,8 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateMarkerActivity.cs" />
+    <Compile Include="ExternalStorageFilenameGenerator.cs" />
     <Compile Include="GoogleMapHelpers.cs" />
-    <Compile Include="MapWithMarkersActivity.cs" />
+    <Compile Include="IGenerateNameOfFile.cs" />
+    <Compile Include="InternalCacheFilenameGenerator.cs" />
     <Compile Include="Model\MarkerInfo.cs" />
     <Compile Include="Model\MarkerMessage.cs" />
     <Compile Include="Mvvm\App.cs" />
@@ -114,7 +116,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <Folder Include="Resources\menu\" />
     <Folder Include="View\" />
   </ItemGroup>

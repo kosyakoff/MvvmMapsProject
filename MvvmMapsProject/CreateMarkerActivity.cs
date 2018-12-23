@@ -95,7 +95,7 @@
                 MarkerInfo = markerInfo
             };
 
-            Messenger.Default.Send<MarkerMessage>(markerMessage);
+            Messenger.Default.Send(markerMessage);
             _navigationService.GoBack();
         }
 

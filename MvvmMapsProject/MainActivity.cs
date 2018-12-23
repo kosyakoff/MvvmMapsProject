@@ -1,17 +1,20 @@
 ﻿namespace MvvmMapsProject
 {
-    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Android;
     using Android.App;
     using Android.Content;
+    using Android.Content.PM;
     using Android.Gms.Common;
     using Android.Gms.Maps;
     using Android.Gms.Maps.Model;
     using Android.Locations;
     using Android.OS;
+    using Android.Support.Design.Widget;
     using Android.Util;
 
     using GalaSoft.MvvmLight.Helpers;
@@ -24,25 +27,36 @@
 
     using Newtonsoft.Json;
 
+    using DateTime = System.DateTime;
     using Messenger = GalaSoft.MvvmLight.Messaging.Messenger;
 
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : ActivityBase, IOnMapReadyCallback
     {
+        #region Constants
+
+        private const int RC_READ_EXTERNAL_STORAGE_PERMISSION = 1100;
+        private const int RC_WRITE_EXTERNAL_STORAGE_PERMISSION = 1000;
+
+        #endregion
+
         #region Fields
 
         public static readonly int RC_INSTALL_GOOGLE_PLAY_SERVICES = 1000;
 
         public static readonly string TAG = "XamarinMapDemo";
+        protected static readonly string _defaultFilename = "markers.json";
 
         // Keep track of bindings to avoid premature garbage collection
         private readonly List<Binding> _bindings = new List<Binding>();
+        private IGenerateNameOfFile _filenameGenerator;
 
         private bool _isGooglePlayServicesInstalled;
 
-        private readonly List<Marker> _markers = new List<Marker>();
+        private List<MarkerInfo> _markers = new List<MarkerInfo>();
 
         private GoogleMap googleMap;
+        private static readonly string[] PERMISSIONS_TO_REQUEST = { Manifest.Permission.WriteExternalStorage };
         private static readonly int REQUEST_PERMISSIONS_LOCATION = 1000;
 
         #endregion
@@ -53,11 +67,22 @@
         {
             googleMap = map;
 
+            foreach (MarkerInfo markerInfo in _markers)
+                using (var markerOption = new MarkerOptions())
+                {
+                    markerOption.SetPosition(new LatLng(markerInfo.Latitude, markerInfo.Longtitude));
+                    markerOption.SetTitle(markerInfo.Title);
+                    markerOption.SetSnippet(markerInfo.Address);
+
+                    // save the "marker" variable returned if you need move, delete, update it, etc...
+                    Marker marker = googleMap.AddMarker(markerOption);
+                }
+
             if (this.PerformRuntimePermissionCheckForLocation(REQUEST_PERMISSIONS_LOCATION))
                 InitializeUiSettingsOnMap();
 
-            googleMap.MapClick += GoogleMap_MapClick;
-            googleMap.MarkerClick += GoogleMap_MarkerClick;
+            googleMap.MapClick += HandleOnGoogleMapClick;
+            googleMap.MarkerClick += HandleOnGoogleMapMarkerClick;
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -72,6 +97,18 @@
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.MapLayout);
+
+            if (Environment.MediaMounted.Equals(Environment.ExternalStorageState))
+                _filenameGenerator = new ExternalStorageFilenameGenerator(this);
+            else
+                _filenameGenerator = new InternalCacheFilenameGenerator(this);
+
+            string json = ReadFile(_filenameGenerator);
+
+            if (!string.IsNullOrWhiteSpace(json))
+            {
+                _markers = JsonConvert.DeserializeObject<List<MarkerInfo>>(json);
+            }
 
             // Illustrates how to use the Messenger by receiving a message
             // and sending a message back.
@@ -91,7 +128,13 @@
             mapFragment.GetMapAsync(this);
         }
 
-        private async void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        private void HandleNotificationMessage(NotificationMessageAction<string> message)
+        {
+            // Execute a callback to send a reply to the sender.
+            message.Execute("Success! (from MainActivity.cs)");
+        }
+
+        private async void HandleOnGoogleMapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
             Address address = await ReverseGeocodeCurrentLocation(e.Point);
 
@@ -108,15 +151,20 @@
             App.Locator.MainVm.CreateNewMarkerCommand.Execute(markerString);
         }
 
-        private void GoogleMap_MarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
+        private void HandleOnGoogleMapMarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
         {
-            //e.Handled = true;
-        }
+            e.Handled = true;
 
-        private void HandleNotificationMessage(NotificationMessageAction<string> message)
-        {
-            // Execute a callback to send a reply to the sender.
-            message.Execute("Success! (from MainActivity.cs)");
+            MarkerInfo markerInfo = _markers.FirstOrDefault(x => x.Latitude == e.Marker.Position.Latitude && x.Longtitude == e.Marker.Position.Longitude);
+
+            if (markerInfo == null)
+            {
+                return;
+            }
+            
+            string markerString = JsonConvert.SerializeObject(markerInfo);
+
+            App.Locator.MainVm.CreateNewMarkerCommand.Execute(markerString);
         }
 
         private void InitializeUiSettingsOnMap()
@@ -127,18 +175,76 @@
             googleMap.MyLocationEnabled = true;
         }
 
+        private string ReadFile(IGenerateNameOfFile fileName)
+        {
+            string backingFile = fileName.GetAbsolutePathToFile(_defaultFilename);
+
+            if (backingFile == null)
+                return string.Empty;
+
+            return File.ReadAllText(backingFile);
+        }
+
         private void ReceiveMarkerInfo(MarkerMessage message)
         {
             if (message.IsSuccess && message.MarkerInfo != null)
                 using (var markerOption = new MarkerOptions())
                 {
-                    markerOption.SetPosition(new LatLng(message.MarkerInfo.Latitude, message.MarkerInfo.Longtitude));
-                    markerOption.SetTitle(message.MarkerInfo.Title);
-                    markerOption.SetSnippet(message.MarkerInfo.Address);
-                    // save the "marker" variable returned if you need move, delete, update it, etc...
-                    Marker marker = googleMap.AddMarker(markerOption);
-                    _markers.Add(marker);
+                    bool inArray = _markers.Any(x => x.Latitude == message.MarkerInfo.Latitude  && x.Longtitude == message.MarkerInfo.Longtitude);
+
+                    if (!inArray)
+                    {
+                        MarkerInfo markerInfo = message.MarkerInfo;
+                        markerOption.SetPosition(new LatLng(markerInfo.Latitude, markerInfo.Longtitude));
+                        markerOption.SetTitle(markerInfo.Title);
+                        markerOption.SetSnippet(markerInfo.Address);
+
+                        // save the "marker" variable returned if you need move, delete, update it, etc...
+                        Marker marker = googleMap.AddMarker(markerOption);
+
+                        _markers.Add(markerInfo);
+                    }
+                    else
+                    {
+                       MarkerInfo markerToRemove =  _markers.First(x => x.Latitude == message.MarkerInfo.Latitude && x.Longtitude == message.MarkerInfo.Longtitude);
+                        _markers.Remove(markerToRemove);
+                        _markers.Add(message.MarkerInfo);
+                    }
+
+                    string json = JsonConvert.SerializeObject(_markers, Formatting.Indented);
+
+                    if (RequestExternalStoragePermissionIfNecessary(RC_WRITE_EXTERNAL_STORAGE_PERMISSION))
+                    {
+                        WriteFile(_filenameGenerator, json);
+                    }
                 }
+        }
+
+        private bool RequestExternalStoragePermissionIfNecessary(int requestCode)
+        {
+            if (Environment.MediaMounted.Equals(Environment.ExternalStorageState))
+            {
+                if (CheckSelfPermission(Manifest.Permission.WriteExternalStorage) == Permission.Granted)
+                    return true;
+
+                if (ShouldShowRequestPermissionRationale(Manifest.Permission.WriteExternalStorage))
+                    Snackbar.Make(
+                        FindViewById(Android.Resource.Id.Content),
+                        Resource.String.write_external_permissions_rationale,
+                        Snackbar.LengthIndefinite).SetAction(
+                        Resource.String.ok,
+                        delegate
+                        {
+                            RequestPermissions(PERMISSIONS_TO_REQUEST, requestCode);
+                        });
+                else
+                    RequestPermissions(PERMISSIONS_TO_REQUEST, requestCode);
+
+                return false;
+            }
+
+            Log.Warn(TAG, "External storage is not mounted; cannot request permission");
+            return false;
         }
 
         private async Task<Address> ReverseGeocodeCurrentLocation(LatLng point)
@@ -166,6 +272,17 @@
             }
 
             return false;
+        }
+
+        private void WriteFile(IGenerateNameOfFile fileName, string json)
+        {
+            string backingFile = fileName.GetAbsolutePathToFile(_defaultFilename);
+
+            if (backingFile == null)
+                return;
+            File.WriteAllText(backingFile, json);
+
+            string sub = File.ReadAllText(backingFile);
         }
 
         #endregion

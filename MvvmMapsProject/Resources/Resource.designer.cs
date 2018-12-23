@@ -3558,8 +3558,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f08003b
 			public const int location_permission_rationale = 2131230779;
 			
-			// aapt resource value: 0x7f08003d
-			public const int ok = 2131230781;
+			// aapt resource value: 0x7f08003e
+			public const int ok = 2131230782;
 			
 			// aapt resource value: 0x7f080032
 			public const int password_toggle_content_description = 2131230770;
@@ -3581,6 +3581,9 @@ namespace MvvmMapsProject
 			
 			// aapt resource value: 0x7f080037
 			public const int status_bar_notification_info_overflow = 2131230775;
+			
+			// aapt resource value: 0x7f08003d
+			public const int write_external_permissions_rationale = 2131230781;
 			
 			static String()
 			{
