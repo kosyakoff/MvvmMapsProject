@@ -31,8 +31,8 @@
         {
             googleMap = map;
 
-            if (this.PerformRuntimePermissionCheckForLocation(REQUEST_PERMISSIONS_LOCATION))
-                InitializeUiSettingsOnMap();
+            //if (this.PerformRuntimePermissionCheckForLocation(REQUEST_PERMISSIONS_LOCATION))
+            //    InitializeUiSettingsOnMap();
 
             googleMap.MapClick += GoogleMap_MapClick;
             googleMap.MarkerClick += GoogleMap_MarkerClick;

@@ -26,7 +26,8 @@
 
         private static void SetNavigation(NavigationService nav)
         {
-            nav.Configure(NavigationKeys.MapWithMarkers, typeof(MapWithMarkersActivity));
+            nav.Configure(NavigationKeys.CREATE_MARKER_ACTIVITY, typeof(CreateMarkerActivity));
+            nav.Configure(NavigationKeys.MAIN_ACTIVITY, typeof(MainActivity));
         }
 
         #endregion

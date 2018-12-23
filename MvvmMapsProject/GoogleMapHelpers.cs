@@ -15,6 +15,8 @@
     using Android.Util;
     using Android.Views;
 
+    using GalaSoft.MvvmLight.Views;
+
     public static class GoogleMapHelpers
     {
         #region Fields
@@ -142,7 +144,7 @@
         ///     A request code that will be returned
         ///     to the activity via the <c>OnRequestPermissionsResult</c> method.
         /// </param>
-        public static bool PerformRuntimePermissionCheckForLocation(this AppCompatActivity activity, int requestCode)
+        public static bool PerformRuntimePermissionCheckForLocation(this ActivityBase activity, int requestCode)
         {
             if (activity.HasLocationPermissions())
                 return true;

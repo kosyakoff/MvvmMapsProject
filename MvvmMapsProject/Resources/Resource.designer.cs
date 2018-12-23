@@ -2528,8 +2528,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0042
 			public const int SYM = 2131427394;
 			
-			// aapt resource value: 0x7f0b00ac
-			public const int action0 = 2131427500;
+			// aapt resource value: 0x7f0b00b7
+			public const int action0 = 2131427511;
 			
 			// aapt resource value: 0x7f0b0086
 			public const int action_bar = 2131427462;
@@ -2552,17 +2552,17 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0064
 			public const int action_bar_title = 2131427428;
 			
-			// aapt resource value: 0x7f0b00a9
-			public const int action_container = 2131427497;
+			// aapt resource value: 0x7f0b00b4
+			public const int action_container = 2131427508;
 			
 			// aapt resource value: 0x7f0b0087
 			public const int action_context_bar = 2131427463;
 			
-			// aapt resource value: 0x7f0b00b0
-			public const int action_divider = 2131427504;
+			// aapt resource value: 0x7f0b00bb
+			public const int action_divider = 2131427515;
 			
-			// aapt resource value: 0x7f0b00aa
-			public const int action_image = 2131427498;
+			// aapt resource value: 0x7f0b00b5
+			public const int action_image = 2131427509;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -2579,17 +2579,20 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0066
 			public const int action_mode_close_button = 2131427430;
 			
-			// aapt resource value: 0x7f0b00ab
-			public const int action_text = 2131427499;
+			// aapt resource value: 0x7f0b00b6
+			public const int action_text = 2131427510;
 			
-			// aapt resource value: 0x7f0b00b9
-			public const int actions = 2131427513;
+			// aapt resource value: 0x7f0b00c4
+			public const int actions = 2131427524;
 			
 			// aapt resource value: 0x7f0b0067
 			public const int activity_chooser_view_content = 2131427431;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int add = 2131427378;
+			
+			// aapt resource value: 0x7f0b009a
+			public const int addressText = 2131427482;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int adjust_height = 2131427362;
@@ -2606,8 +2609,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0043
 			public const int always = 2131427395;
 			
-			// aapt resource value: 0x7f0b00a7
-			public const int animateButton = 2131427495;
+			// aapt resource value: 0x7f0b00a2
+			public const int applyButton = 2131427490;
 			
 			// aapt resource value: 0x7f0b0060
 			public const int async = 2131427424;
@@ -2627,8 +2630,11 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b006d
 			public const int buttonPanel = 2131427437;
 			
-			// aapt resource value: 0x7f0b00ad
-			public const int cancel_action = 2131427501;
+			// aapt resource value: 0x7f0b00a3
+			public const int cancelButton = 2131427491;
+			
+			// aapt resource value: 0x7f0b00b8
+			public const int cancel_action = 2131427512;
 			
 			// aapt resource value: 0x7f0b004f
 			public const int center = 2131427407;
@@ -2642,8 +2648,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b007d
 			public const int checkbox = 2131427453;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int chronometer = 2131427509;
+			// aapt resource value: 0x7f0b00c0
+			public const int chronometer = 2131427520;
 			
 			// aapt resource value: 0x7f0b0058
 			public const int clip_horizontal = 2131427416;
@@ -2654,14 +2660,14 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0044
 			public const int collapseActionView = 2131427396;
 			
-			// aapt resource value: 0x7f0b0098
-			public const int container = 2131427480;
+			// aapt resource value: 0x7f0b00a6
+			public const int container = 2131427494;
 			
 			// aapt resource value: 0x7f0b0070
 			public const int contentPanel = 2131427440;
 			
-			// aapt resource value: 0x7f0b0099
-			public const int coordinator = 2131427481;
+			// aapt resource value: 0x7f0b00a7
+			public const int coordinator = 2131427495;
 			
 			// aapt resource value: 0x7f0b0077
 			public const int custom = 2131427447;
@@ -2678,23 +2684,20 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b006a
 			public const int default_activity_button = 2131427434;
 			
-			// aapt resource value: 0x7f0b00a4
-			public const int description = 2131427492;
+			// aapt resource value: 0x7f0b00a9
+			public const int design_bottom_sheet = 2131427497;
 			
-			// aapt resource value: 0x7f0b009b
-			public const int design_bottom_sheet = 2131427483;
+			// aapt resource value: 0x7f0b00b0
+			public const int design_menu_item_action_area = 2131427504;
 			
-			// aapt resource value: 0x7f0b00a2
-			public const int design_menu_item_action_area = 2131427490;
+			// aapt resource value: 0x7f0b00af
+			public const int design_menu_item_action_area_stub = 2131427503;
 			
-			// aapt resource value: 0x7f0b00a1
-			public const int design_menu_item_action_area_stub = 2131427489;
+			// aapt resource value: 0x7f0b00ae
+			public const int design_menu_item_text = 2131427502;
 			
-			// aapt resource value: 0x7f0b00a0
-			public const int design_menu_item_text = 2131427488;
-			
-			// aapt resource value: 0x7f0b009f
-			public const int design_navigation_view = 2131427487;
+			// aapt resource value: 0x7f0b00ad
+			public const int design_navigation_view = 2131427501;
 			
 			// aapt resource value: 0x7f0b002c
 			public const int disableHome = 2131427372;
@@ -2705,8 +2708,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b003b
 			public const int end = 2131427387;
 			
-			// aapt resource value: 0x7f0b00bb
-			public const int end_padder = 2131427515;
+			// aapt resource value: 0x7f0b00c6
+			public const int end_padder = 2131427526;
 			
 			// aapt resource value: 0x7f0b004a
 			public const int enterAlways = 2131427402;
@@ -2753,8 +2756,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b006c
 			public const int icon = 2131427436;
 			
-			// aapt resource value: 0x7f0b00ba
-			public const int icon_group = 2131427514;
+			// aapt resource value: 0x7f0b00c5
+			public const int icon_group = 2131427525;
 			
 			// aapt resource value: 0x7f0b0024
 			public const int icon_only = 2131427364;
@@ -2765,8 +2768,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0069
 			public const int image = 2131427433;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int info = 2131427510;
+			// aapt resource value: 0x7f0b00c1
+			public const int info = 2131427521;
 			
 			// aapt resource value: 0x7f0b0063
 			public const int italic = 2131427427;
@@ -2774,8 +2777,14 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0000
 			public const int item_touch_helper_previous_elevation = 2131427328;
 			
-			// aapt resource value: 0x7f0b0097
-			public const int largeLabel = 2131427479;
+			// aapt resource value: 0x7f0b00a5
+			public const int largeLabel = 2131427493;
+			
+			// aapt resource value: 0x7f0b00a0
+			public const int lastModifiedText = 2131427488;
+			
+			// aapt resource value: 0x7f0b0098
+			public const int latitudeText = 2131427480;
 			
 			// aapt resource value: 0x7f0b0053
 			public const int left = 2131427411;
@@ -2789,26 +2798,29 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0018
 			public const int line3 = 2131427352;
 			
+			// aapt resource value: 0x7f0b00a1
+			public const int linearLayout1 = 2131427489;
+			
 			// aapt resource value: 0x7f0b002a
 			public const int listMode = 2131427370;
-			
-			// aapt resource value: 0x7f0b0095
-			public const int listView = 2131427477;
 			
 			// aapt resource value: 0x7f0b006b
 			public const int list_item = 2131427435;
 			
-			// aapt resource value: 0x7f0b00a8
-			public const int map = 2131427496;
+			// aapt resource value: 0x7f0b0096
+			public const int longitudeText = 2131427478;
 			
-			// aapt resource value: 0x7f0b00be
-			public const int masked = 2131427518;
+			// aapt resource value: 0x7f0b00b3
+			public const int map = 2131427507;
 			
-			// aapt resource value: 0x7f0b00af
-			public const int media_actions = 2131427503;
+			// aapt resource value: 0x7f0b00c9
+			public const int masked = 2131427529;
 			
-			// aapt resource value: 0x7f0b00bc
-			public const int message = 2131427516;
+			// aapt resource value: 0x7f0b00ba
+			public const int media_actions = 2131427514;
+			
+			// aapt resource value: 0x7f0b00c7
+			public const int message = 2131427527;
 			
 			// aapt resource value: 0x7f0b003c
 			public const int middle = 2131427388;
@@ -2819,8 +2831,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0033
 			public const int multiply = 2131427379;
 			
-			// aapt resource value: 0x7f0b009e
-			public const int navigation_header_container = 2131427486;
+			// aapt resource value: 0x7f0b00ac
+			public const int navigation_header_container = 2131427500;
 			
 			// aapt resource value: 0x7f0b0046
 			public const int never = 2131427398;
@@ -2831,14 +2843,14 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b001f
 			public const int normal = 2131427359;
 			
-			// aapt resource value: 0x7f0b00b8
-			public const int notification_background = 2131427512;
+			// aapt resource value: 0x7f0b00c3
+			public const int notification_background = 2131427523;
 			
-			// aapt resource value: 0x7f0b00b2
-			public const int notification_main_column = 2131427506;
+			// aapt resource value: 0x7f0b00bd
+			public const int notification_main_column = 2131427517;
 			
-			// aapt resource value: 0x7f0b00b1
-			public const int notification_main_column_container = 2131427505;
+			// aapt resource value: 0x7f0b00bc
+			public const int notification_main_column_container = 2131427516;
 			
 			// aapt resource value: 0x7f0b0056
 			public const int parallax = 2131427414;
@@ -2864,11 +2876,11 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0054
 			public const int right = 2131427412;
 			
-			// aapt resource value: 0x7f0b00b7
-			public const int right_icon = 2131427511;
+			// aapt resource value: 0x7f0b00c2
+			public const int right_icon = 2131427522;
 			
-			// aapt resource value: 0x7f0b00b3
-			public const int right_side = 2131427507;
+			// aapt resource value: 0x7f0b00be
+			public const int right_side = 2131427518;
 			
 			// aapt resource value: 0x7f0b0020
 			public const int satellite = 2131427360;
@@ -2945,17 +2957,20 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0030
 			public const int showTitle = 2131427376;
 			
-			// aapt resource value: 0x7f0b0096
-			public const int smallLabel = 2131427478;
+			// aapt resource value: 0x7f0b00a4
+			public const int smallLabel = 2131427492;
 			
-			// aapt resource value: 0x7f0b009d
-			public const int snackbar_action = 2131427485;
+			// aapt resource value: 0x7f0b00ab
+			public const int snackbar_action = 2131427499;
 			
-			// aapt resource value: 0x7f0b009c
-			public const int snackbar_text = 2131427484;
+			// aapt resource value: 0x7f0b00aa
+			public const int snackbar_text = 2131427498;
 			
 			// aapt resource value: 0x7f0b004e
 			public const int snap = 2131427406;
+			
+			// aapt resource value: 0x7f0b009e
+			public const int snippetEditText = 2131427486;
 			
 			// aapt resource value: 0x7f0b006e
 			public const int spacer = 2131427438;
@@ -2978,8 +2993,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0055
 			public const int start = 2131427413;
 			
-			// aapt resource value: 0x7f0b00ae
-			public const int status_bar_latest_event_content = 2131427502;
+			// aapt resource value: 0x7f0b00b9
+			public const int status_bar_latest_event_content = 2131427513;
 			
 			// aapt resource value: 0x7f0b0080
 			public const int submenuarrow = 2131427456;
@@ -3008,8 +3023,26 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0073
 			public const int textSpacerNoTitle = 2131427443;
 			
-			// aapt resource value: 0x7f0b00a3
-			public const int text_input_password_toggle = 2131427491;
+			// aapt resource value: 0x7f0b0095
+			public const int textView1 = 2131427477;
+			
+			// aapt resource value: 0x7f0b0097
+			public const int textView2 = 2131427479;
+			
+			// aapt resource value: 0x7f0b0099
+			public const int textView3 = 2131427481;
+			
+			// aapt resource value: 0x7f0b009b
+			public const int textView4 = 2131427483;
+			
+			// aapt resource value: 0x7f0b009d
+			public const int textView5 = 2131427485;
+			
+			// aapt resource value: 0x7f0b009f
+			public const int textView6 = 2131427487;
+			
+			// aapt resource value: 0x7f0b00b1
+			public const int text_input_password_toggle = 2131427505;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int textinput_counter = 2131427348;
@@ -3017,14 +3050,17 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0015
 			public const int textinput_error = 2131427349;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int time = 2131427508;
+			// aapt resource value: 0x7f0b00bf
+			public const int time = 2131427519;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int title = 2131427356;
 			
 			// aapt resource value: 0x7f0b007b
 			public const int titleDividerNoCustom = 2131427451;
+			
+			// aapt resource value: 0x7f0b009c
+			public const int titleEditText = 2131427484;
 			
 			// aapt resource value: 0x7f0b0079
 			public const int title_template = 2131427449;
@@ -3035,8 +3071,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0078
 			public const int topPanel = 2131427448;
 			
-			// aapt resource value: 0x7f0b009a
-			public const int touch_outside = 2131427482;
+			// aapt resource value: 0x7f0b00a8
+			public const int touch_outside = 2131427496;
 			
 			// aapt resource value: 0x7f0b000f
 			public const int transition_current_scene = 2131427343;
@@ -3065,8 +3101,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0016
 			public const int view_offset_helper = 2131427350;
 			
-			// aapt resource value: 0x7f0b00bd
-			public const int visible = 2131427517;
+			// aapt resource value: 0x7f0b00c8
+			public const int visible = 2131427528;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int wide = 2131427366;
@@ -3077,11 +3113,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0039
 			public const int wrap_content = 2131427385;
 			
-			// aapt resource value: 0x7f0b00a5
-			public const int zoomInButton = 2131427493;
-			
-			// aapt resource value: 0x7f0b00a6
-			public const int zoomOutButton = 2131427494;
+			// aapt resource value: 0x7f0b00b2
+			public const int zoomInButton = 2131427506;
 			
 			static Id()
 			{
@@ -3221,7 +3254,7 @@ namespace MvvmMapsProject
 			public const int abc_select_dialog_material = 2130968601;
 			
 			// aapt resource value: 0x7f04001a
-			public const int activity_main = 2130968602;
+			public const int CreateMarkerActivity = 2130968602;
 			
 			// aapt resource value: 0x7f04001b
 			public const int design_bottom_navigation_item = 2130968603;
@@ -3266,70 +3299,67 @@ namespace MvvmMapsProject
 			public const int design_text_input_password_icon = 2130968616;
 			
 			// aapt resource value: 0x7f040029
-			public const int Feature = 2130968617;
+			public const int MapLayout = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-			public const int MapLayout = 2130968618;
+			public const int notification_action = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int notification_action = 2130968619;
+			public const int notification_action_tombstone = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int notification_action_tombstone = 2130968620;
+			public const int notification_media_action = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int notification_media_action = 2130968621;
+			public const int notification_media_cancel_action = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int notification_media_cancel_action = 2130968622;
+			public const int notification_template_big_media = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int notification_template_big_media = 2130968623;
+			public const int notification_template_big_media_custom = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int notification_template_big_media_custom = 2130968624;
+			public const int notification_template_big_media_narrow = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int notification_template_big_media_narrow = 2130968625;
+			public const int notification_template_big_media_narrow_custom = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int notification_template_big_media_narrow_custom = 2130968626;
+			public const int notification_template_custom_big = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int notification_template_custom_big = 2130968627;
+			public const int notification_template_icon_group = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int notification_template_icon_group = 2130968628;
+			public const int notification_template_lines_media = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int notification_template_lines_media = 2130968629;
+			public const int notification_template_media = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int notification_template_media = 2130968630;
+			public const int notification_template_media_custom = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int notification_template_media_custom = 2130968631;
+			public const int notification_template_part_chronometer = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int notification_template_part_chronometer = 2130968632;
+			public const int notification_template_part_time = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int notification_template_part_time = 2130968633;
+			public const int select_dialog_item_material = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int select_dialog_item_material = 2130968634;
+			public const int select_dialog_multichoice_material = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int select_dialog_multichoice_material = 2130968635;
+			public const int select_dialog_singlechoice_material = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int select_dialog_singlechoice_material = 2130968636;
+			public const int support_simple_spinner_dropdown_item = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int support_simple_spinner_dropdown_item = 2130968637;
-			
-			// aapt resource value: 0x7f04003e
-			public const int tooltip = 2130968638;
+			public const int tooltip = 2130968637;
 			
 			static Layout()
 			{

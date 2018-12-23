@@ -1,13 +1,9 @@
 ﻿namespace MvvmMapsProject.Mvvm
 {
-    using System.Collections.Generic;
-
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
     using GalaSoft.MvvmLight.Messaging;
     using GalaSoft.MvvmLight.Views;
-
-    using Model;
 
     /// <summary>
     ///     This class contains properties that the main View can data bind to.
@@ -19,20 +15,24 @@
     {
         #region Fields
 
-        public readonly List<SampleActivityMetaData> SampleMetaDataList = new List<SampleActivityMetaData>
-        {
-            new SampleActivityMetaData(
-                Resource.String.activity_label_mapwithmarkers,
-                Resource.String.activity_description_mapwithmarkers,
-                typeof(MapWithMarkersActivity),
-                NavigationKeys.MapWithMarkers)
-        };
-
         private readonly INavigationService _navigationService;
 
         private RelayCommand _sendMessageCommand;
         private RelayCommand<string> _showDialogCommand;
         private string _welcomeTitle = "Hello MVVM";
+
+        #endregion
+
+        #region Properties
+
+        public RelayCommand<string> CreateNewMarkerCommand { get; }
+
+        /// <summary>
+        ///     Gets the NavigateCommand.
+        ///     Goes to the second page, using the navigation service.
+        ///     Use the "mvvmr*" snippet group to create more such commands.
+        /// </summary>
+        public RelayCommand<string> NavigateCommand { get; }
 
         #endregion
 
@@ -45,11 +45,17 @@
         {
             _navigationService = navigationService;
             NavigateCommand = new RelayCommand<string>(NavigateTo);
+            CreateNewMarkerCommand = new RelayCommand<string>(CreateNewMarker);
         }
 
         #endregion
 
         #region Methods
+
+        private void CreateNewMarker(string parameter)
+        {
+            _navigationService.NavigateTo(NavigationKeys.CREATE_MARKER_ACTIVITY, parameter);
+        }
 
         private void NavigateTo(string parameter)
         {
@@ -57,13 +63,6 @@
         }
 
         #endregion
-
-        /// <summary>
-        ///     Gets the NavigateCommand.
-        ///     Goes to the second page, using the navigation service.
-        ///     Use the "mvvmr*" snippet group to create more such commands.
-        /// </summary>
-        public RelayCommand<string> NavigateCommand { get; }
 
         /// <summary>
         ///     Sets and gets the WelcomeTitle property.
