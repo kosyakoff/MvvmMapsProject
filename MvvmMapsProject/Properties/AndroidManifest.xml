@@ -6,11 +6,10 @@
 	<!-- Notice here that we have the package name of our application as a prefix on the permissions. -->
 	<uses-permission android:name="MvvmMapsProject.MvvmMapsProject.permission.MAPS_RECEIVE" />
 	<permission android:name="MvvmMapsProject.MvvmMapsProject.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<!-- These are optional, but recommended. They will allow Maps to use the My Location provider. -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/AppTheme">
 		<!-- Put your Google Maps V2 API Key here. This key will not work for you.-->
 		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCp2NSNMzTqaGlHzTgVbcIqy-3ZtXPIE7E" />

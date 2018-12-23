@@ -56,7 +56,7 @@
         private List<MarkerInfo> _markers = new List<MarkerInfo>();
 
         private GoogleMap googleMap;
-        private static readonly string[] PERMISSIONS_TO_REQUEST = { Manifest.Permission.WriteExternalStorage };
+        private static readonly string[] PERMISSIONS_TO_REQUEST = { Manifest.Permission.WriteExternalStorage, Manifest.Permission.ReadExternalStorage };
         private static readonly int REQUEST_PERMISSIONS_LOCATION = 1000;
 
         #endregion
@@ -136,6 +136,11 @@
 
         private async void HandleOnGoogleMapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
+            if (!RequestExternalStoragePermissionIfNecessary(RC_WRITE_EXTERNAL_STORAGE_PERMISSION))
+            {
+                return;
+            }
+
             Address address = await ReverseGeocodeCurrentLocation(e.Point);
 
             var marker = new MarkerInfo
@@ -154,6 +159,11 @@
         private void HandleOnGoogleMapMarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
         {
             e.Handled = true;
+
+            if (!RequestExternalStoragePermissionIfNecessary(RC_WRITE_EXTERNAL_STORAGE_PERMISSION))
+            {
+                return;
+            }
 
             MarkerInfo markerInfo = _markers.FirstOrDefault(x => x.Latitude == e.Marker.Position.Latitude && x.Longtitude == e.Marker.Position.Longitude);
 
@@ -213,10 +223,9 @@
 
                     string json = JsonConvert.SerializeObject(_markers, Formatting.Indented);
 
-                    if (RequestExternalStoragePermissionIfNecessary(RC_WRITE_EXTERNAL_STORAGE_PERMISSION))
-                    {
+
                         WriteFile(_filenameGenerator, json);
-                    }
+
                 }
         }
 
@@ -238,7 +247,11 @@
                             RequestPermissions(PERMISSIONS_TO_REQUEST, requestCode);
                         });
                 else
+                {
                     RequestPermissions(PERMISSIONS_TO_REQUEST, requestCode);
+                    return false;
+                }
+                  
 
                 return false;
             }
