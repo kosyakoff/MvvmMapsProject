@@ -5,5 +5,7 @@
   <string name="location_permission_rationale">This activity requires permission to use the GPS to determine your location.</string>
   <string name="location_permission_missing">This activity is missing permission to use the GPS. Closing. </string>
   <string name="write_external_permissions_rationale">This sample requires permission to write to the external storage.</string>
+  <string name="couldnt_find_any_marker">Could not find any markers</string>
+  <string name="error">error</string>
   <string name="ok">OK</string>
 </resources>

@@ -3,12 +3,24 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Button
-        android:id="@+id/zoomInButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Zoom In" />
-
+ 
+			<LinearLayout
+			android:orientation="vertical"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/linearLayout1" >
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/searchMarkerEditText" />
+		<Button
+			android:text="Search Marker"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/searchMarkerButton" />
+		</LinearLayout>
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -17,5 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             class="com.google.android.gms.maps.MapFragment" />
+
     </FrameLayout>
 </LinearLayout>

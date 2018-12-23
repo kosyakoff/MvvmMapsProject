@@ -87,7 +87,7 @@
                 Longtitude = double.Parse(longtitudeText.Text),
                 Title = titleEditText.Text,
                 Snippet = snippetEditText.Text,
-                LastModData = DateTime.Parse(lastModifiedText.Text)
+                LastModData = DateTime.Now
             };
             var markerMessage = new MarkerMessage
             {

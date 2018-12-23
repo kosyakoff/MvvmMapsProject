@@ -16,8 +16,10 @@
     using Android.OS;
     using Android.Support.Design.Widget;
     using Android.Util;
+    using Android.Widget;
 
     using GalaSoft.MvvmLight.Helpers;
+    using GalaSoft.MvvmLight.Ioc;
     using GalaSoft.MvvmLight.Messaging;
     using GalaSoft.MvvmLight.Views;
 
@@ -54,9 +56,17 @@
         private bool _isGooglePlayServicesInstalled;
 
         private List<MarkerInfo> _markers = new List<MarkerInfo>();
+        private Button _searchMarkerButton;
+
+        private TextView _searchMarkerEditText;
 
         private GoogleMap googleMap;
-        private static readonly string[] PERMISSIONS_TO_REQUEST = { Manifest.Permission.WriteExternalStorage, Manifest.Permission.ReadExternalStorage };
+
+        private static readonly string[] PERMISSIONS_TO_REQUEST =
+        {
+            Manifest.Permission.WriteExternalStorage, Manifest.Permission.ReadExternalStorage
+        };
+
         private static readonly int REQUEST_PERMISSIONS_LOCATION = 1000;
 
         #endregion
@@ -95,8 +105,14 @@
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            App.Initialize();
+            
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.MapLayout);
+
+            _searchMarkerEditText = FindViewById<TextView>(Resource.Id.searchMarkerEditText);
+            _searchMarkerButton = FindViewById<Button>(Resource.Id.searchMarkerButton);
+            _searchMarkerButton.Click += HandleOnSearchMarkerButtonClick;
 
             if (Environment.MediaMounted.Equals(Environment.ExternalStorageState))
                 _filenameGenerator = new ExternalStorageFilenameGenerator(this);
@@ -106,9 +122,7 @@
             string json = ReadFile(_filenameGenerator);
 
             if (!string.IsNullOrWhiteSpace(json))
-            {
                 _markers = JsonConvert.DeserializeObject<List<MarkerInfo>>(json);
-            }
 
             // Illustrates how to use the Messenger by receiving a message
             // and sending a message back.
@@ -128,6 +142,31 @@
             mapFragment.GetMapAsync(this);
         }
 
+        private async void HandleOnSearchMarkerButtonClick(object sender, System.EventArgs e)
+        {
+            var searchMarkerName = _searchMarkerEditText.Text;
+
+            var foundElement = _markers.FirstOrDefault(x => x.Title.Contains(searchMarkerName));
+
+            if (foundElement != null)
+            {
+                var builder = CameraPosition.InvokeBuilder();
+                builder.Target(new LatLng(foundElement.Latitude,foundElement.Longtitude));
+                builder.Zoom(10);
+                var cameraPosition = builder.Build();
+
+                // AnimateCamera provides a smooth, animation effect while moving
+                // the camera to the the position.
+                googleMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
+            }
+            else
+            {
+                var dialogService = (DialogService)SimpleIoc.Default.GetInstance<IDialogService>();
+               await dialogService.ShowError(Resources.GetString(Resource.String.couldnt_find_any_marker), Resources.GetString(Resource.String.error), Resources.GetString(Resource.String.ok), null);
+            }
+
+        }
+
         private void HandleNotificationMessage(NotificationMessageAction<string> message)
         {
             // Execute a callback to send a reply to the sender.
@@ -137,9 +176,7 @@
         private async void HandleOnGoogleMapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
             if (!RequestExternalStoragePermissionIfNecessary(RC_WRITE_EXTERNAL_STORAGE_PERMISSION))
-            {
                 return;
-            }
 
             Address address = await ReverseGeocodeCurrentLocation(e.Point);
 
@@ -161,17 +198,16 @@
             e.Handled = true;
 
             if (!RequestExternalStoragePermissionIfNecessary(RC_WRITE_EXTERNAL_STORAGE_PERMISSION))
-            {
                 return;
-            }
 
-            MarkerInfo markerInfo = _markers.FirstOrDefault(x => x.Latitude == e.Marker.Position.Latitude && x.Longtitude == e.Marker.Position.Longitude);
+            MarkerInfo markerInfo =
+                _markers.FirstOrDefault(x => x.Latitude == e.Marker.Position.Latitude && x.Longtitude == e.Marker.Position.Longitude);
 
             if (markerInfo == null)
             {
                 return;
             }
-            
+
             string markerString = JsonConvert.SerializeObject(markerInfo);
 
             App.Locator.MainVm.CreateNewMarkerCommand.Execute(markerString);
@@ -200,7 +236,7 @@
             if (message.IsSuccess && message.MarkerInfo != null)
                 using (var markerOption = new MarkerOptions())
                 {
-                    bool inArray = _markers.Any(x => x.Latitude == message.MarkerInfo.Latitude  && x.Longtitude == message.MarkerInfo.Longtitude);
+                    bool inArray = _markers.Any(x => x.Latitude == message.MarkerInfo.Latitude && x.Longtitude == message.MarkerInfo.Longtitude);
 
                     if (!inArray)
                     {
@@ -216,16 +252,15 @@
                     }
                     else
                     {
-                       MarkerInfo markerToRemove =  _markers.First(x => x.Latitude == message.MarkerInfo.Latitude && x.Longtitude == message.MarkerInfo.Longtitude);
+                        MarkerInfo markerToRemove = _markers.First(
+                            x => x.Latitude == message.MarkerInfo.Latitude && x.Longtitude == message.MarkerInfo.Longtitude);
                         _markers.Remove(markerToRemove);
                         _markers.Add(message.MarkerInfo);
                     }
 
                     string json = JsonConvert.SerializeObject(_markers, Formatting.Indented);
 
-
-                        WriteFile(_filenameGenerator, json);
-
+                    WriteFile(_filenameGenerator, json);
                 }
         }
 
@@ -237,6 +272,7 @@
                     return true;
 
                 if (ShouldShowRequestPermissionRationale(Manifest.Permission.WriteExternalStorage))
+                {
                     Snackbar.Make(
                         FindViewById(Android.Resource.Id.Content),
                         Resource.String.write_external_permissions_rationale,
@@ -246,12 +282,12 @@
                         {
                             RequestPermissions(PERMISSIONS_TO_REQUEST, requestCode);
                         });
+                }
                 else
                 {
                     RequestPermissions(PERMISSIONS_TO_REQUEST, requestCode);
                     return false;
                 }
-                  
 
                 return false;
             }

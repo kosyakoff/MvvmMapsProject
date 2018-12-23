@@ -12,7 +12,6 @@
 		android:minHeight="25px"
 		android:id="@+id/textView1" />
 	<TextView
-		android:text="111"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -26,7 +25,6 @@
     android:minHeight="25px"
     android:id="@+id/textView2" />
   <TextView
-    android:text="111"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -40,7 +38,6 @@
     android:minHeight="25px"
     android:id="@+id/textView3" />
   <TextView
-    android:text="dress"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -78,7 +75,6 @@
     android:minHeight="25px"
     android:id="@+id/textView6" />
   <TextView
-    android:text="12:00"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
