@@ -10,8 +10,8 @@
     {
         #region Fields
 
-        private readonly TextView description;
-        private readonly TextView title;
+        private readonly TextView _description;
+        private readonly TextView _title;
 
         #endregion
 
@@ -22,8 +22,8 @@
         {
             var inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
             View view = inflater.Inflate(Resource.Layout.Feature, this);
-            title = view.FindViewById<TextView>(Resource.Id.title);
-            description = view.FindViewById<TextView>(Resource.Id.description);
+            _title = view.FindViewById<TextView>(Resource.Id.title);
+            _description = view.FindViewById<TextView>(Resource.Id.description);
         }
 
         #endregion
@@ -32,8 +32,8 @@
 
         public void UpdateFrom(SampleActivityMetaData sample)
         {
-            title.SetText(sample.TitleResource);
-            description.SetText(sample.DescriptionResource);
+            _title.SetText(sample.TitleResource);
+            _description.SetText(sample.DescriptionResource);
         }
 
         #endregion

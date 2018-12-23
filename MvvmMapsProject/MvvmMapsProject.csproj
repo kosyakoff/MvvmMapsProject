@@ -59,9 +59,9 @@
     <Compile Include="MapWithMarkersActivity.cs" />
     <Compile Include="Model\SampleActivityMetaData.cs" />
     <Compile Include="Mvvm\App.cs" />
-    <Compile Include="Mvvm\FeatureRowHolder.cs" />
-    <Compile Include="Mvvm\SamplesListAdapter.cs" />
-    <Compile Include="ValueConstants.cs" />
+    <Compile Include="View\FeatureRowHolder.cs" />
+    <Compile Include="View\SamplesListAdapter.cs" />
+    <Compile Include="NavigationKeys.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Mvvm\MainViewModel.cs" />
     <Compile Include="Mvvm\ViewModelLocator.cs" />

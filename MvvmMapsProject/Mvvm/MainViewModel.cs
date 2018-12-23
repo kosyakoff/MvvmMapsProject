@@ -19,7 +19,14 @@
     {
         #region Fields
 
-        private RelayCommand<string> _navigateCommand;
+        public readonly List<SampleActivityMetaData> SampleMetaDataList = new List<SampleActivityMetaData>
+        {
+            new SampleActivityMetaData(
+                Resource.String.activity_label_mapwithmarkers,
+                Resource.String.activity_description_mapwithmarkers,
+                typeof(MapWithMarkersActivity),
+                NavigationKeys.MapWithMarkers)
+        };
 
         private readonly INavigationService _navigationService;
 
@@ -37,16 +44,17 @@
         public MainViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
+            NavigateCommand = new RelayCommand<string>(NavigateTo);
         }
 
-        public readonly List<SampleActivityMetaData> SampleMetaDataList = new List<SampleActivityMetaData>
-                                                                          {
-                                                                                  new SampleActivityMetaData(Resource.String.activity_label_mapwithmarkers,
-                                                                                                         Resource
-                                                                                                             .String
-                                                                                                             .activity_description_mapwithmarkers,
-                                                                                                         typeof(MapWithMarkersActivity)),
-                                                                            };
+        #endregion
+
+        #region Methods
+
+        private void NavigateTo(string parameter)
+        {
+            _navigationService.NavigateTo(parameter, null);
+        }
 
         #endregion
 
@@ -55,16 +63,7 @@
         ///     Goes to the second page, using the navigation service.
         ///     Use the "mvvmr*" snippet group to create more such commands.
         /// </summary>
-        public RelayCommand<string> NavigateCommand
-        {
-            get
-            {
-                return _navigateCommand ?? (_navigateCommand =
-                                                new RelayCommand<string>(
-                                                    parameter => _navigationService.NavigateTo(ValueConstants.SecondPageKey, parameter)));
-            }
-        }
-        
+        public RelayCommand<string> NavigateCommand { get; }
 
         /// <summary>
         ///     Sets and gets the WelcomeTitle property.

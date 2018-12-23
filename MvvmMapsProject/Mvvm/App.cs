@@ -1,12 +1,35 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Threading;
-using GalaSoft.MvvmLight.Views;
-
-namespace MvvmMapsProject.Mvvm
+﻿namespace MvvmMapsProject.Mvvm
 {
+    using GalaSoft.MvvmLight.Ioc;
+    using GalaSoft.MvvmLight.Threading;
+    using GalaSoft.MvvmLight.Views;
+
     public static class App
     {
+        #region Fields
+
         private static ViewModelLocator _locator;
+
+        #endregion
+
+        #region Methods
+
+        private static void Registration()
+        {
+            // Configure and register the MVVM Light NavigationService
+            var nav = new NavigationService();
+
+            SimpleIoc.Default.Register<INavigationService>(() => nav);
+            // Register the MVVM Light DialogService
+            SimpleIoc.Default.Register<IDialogService, DialogService>();
+        }
+
+        private static void SetNavigation(NavigationService nav)
+        {
+            nav.Configure(NavigationKeys.MapWithMarkers, typeof(MapWithMarkersActivity));
+        }
+
+        #endregion
 
         public static ViewModelLocator Locator
         {
@@ -18,13 +41,9 @@ namespace MvvmMapsProject.Mvvm
                     // This needs to be called on the UI thread.
                     DispatcherHelper.Initialize();
 
-                    // Configure and register the MVVM Light NavigationService
-                    var nav = new NavigationService();
-                    SimpleIoc.Default.Register<INavigationService>(() => nav);
-                    //nav.Configure(ValueConstants.SecondPageKey, typeof(SecondActivity));
+                    Registration();
 
-                    // Register the MVVM Light DialogService
-                    SimpleIoc.Default.Register<IDialogService, DialogService>();
+                    SetNavigation((NavigationService)SimpleIoc.Default.GetInstance<INavigationService>());
 
                     _locator = new ViewModelLocator();
                 }

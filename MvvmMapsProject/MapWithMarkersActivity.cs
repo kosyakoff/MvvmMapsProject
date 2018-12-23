@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-namespace MvvmMapsProject
+﻿namespace MvvmMapsProject
 {
+    using System;
+
+    using Android.App;
     using Android.Gms.Maps;
     using Android.Gms.Maps.Model;
+    using Android.OS;
     using Android.Support.V7.App;
+    using Android.Widget;
 
     [Activity(Label = "@string/activity_label_mapwithmarkers")]
     public class MapWithMarkersActivity : AppCompatActivity, IOnMapReadyCallback
     {
-        static readonly LatLng PasschendaeleLatLng = new LatLng(50.897778, 3.013333);
-        static readonly LatLng VimyRidgeLatLng = new LatLng(50.379444, 2.773611);
-        Button animateToLocationButton;
-        GoogleMap googleMap;
+        #region Fields
 
+        private Button animateToLocationButton;
+        private GoogleMap googleMap;
+        private static readonly LatLng PasschendaeleLatLng = new LatLng(50.897778, 3.013333);
+        private static readonly LatLng VimyRidgeLatLng = new LatLng(50.379444, 2.773611);
+
+        #endregion
+
+        #region Methods
 
         public void OnMapReady(GoogleMap map)
         {
@@ -35,7 +33,6 @@ namespace MvvmMapsProject
             AddMarkersToMap();
             animateToLocationButton.Click += AnimateToPasschendaele;
         }
-
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -52,51 +49,55 @@ namespace MvvmMapsProject
             SetupZoomOutButton();
         }
 
+        private void AddMarkersToMap()
+        {
+            var vimyMarker = new MarkerOptions();
+            vimyMarker.SetPosition(VimyRidgeLatLng).SetTitle("Vimy Ridge").
+                SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueCyan));
+            googleMap.AddMarker(vimyMarker);
 
-        void AnimateToPasschendaele(object sender, EventArgs e)
+            var passchendaeleMarker = new MarkerOptions();
+            passchendaeleMarker.SetPosition(PasschendaeleLatLng).SetTitle("PasschendaeleLatLng");
+            googleMap.AddMarker(passchendaeleMarker);
+
+            // We create an instance of CameraUpdate, and move the map to it.
+            CameraUpdate cameraUpdate = CameraUpdateFactory.NewLatLngZoom(VimyRidgeLatLng, 15);
+            googleMap.MoveCamera(cameraUpdate);
+        }
+
+        private void AnimateToPasschendaele(object sender, EventArgs e)
         {
             // Move the camera to the PasschendaeleLatLng Memorial in Belgium.
-            var builder = CameraPosition.InvokeBuilder();
+            CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
             builder.Target(PasschendaeleLatLng);
             builder.Zoom(18);
             builder.Bearing(155);
             builder.Tilt(65);
-            var cameraPosition = builder.Build();
+            CameraPosition cameraPosition = builder.Build();
 
             // AnimateCamera provides a smooth, animation effect while moving
             // the camera to the the position.
             googleMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
         }
 
-        void AddMarkersToMap()
-        {
-            var vimyMarker = new MarkerOptions();
-            vimyMarker.SetPosition(VimyRidgeLatLng)
-                      .SetTitle("Vimy Ridge")
-                      .SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueCyan));
-            googleMap.AddMarker(vimyMarker);
-
-
-            var passchendaeleMarker = new MarkerOptions();
-            passchendaeleMarker.SetPosition(PasschendaeleLatLng)
-                               .SetTitle("PasschendaeleLatLng");
-            googleMap.AddMarker(passchendaeleMarker);
-
-            // We create an instance of CameraUpdate, and move the map to it.
-            var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(VimyRidgeLatLng, 15);
-            googleMap.MoveCamera(cameraUpdate);
-        }
-
-        void SetupZoomInButton()
+        private void SetupZoomInButton()
         {
             var zoomInButton = FindViewById<Button>(Resource.Id.zoomInButton);
-            zoomInButton.Click += (sender, e) => { googleMap.AnimateCamera(CameraUpdateFactory.ZoomIn()); };
+            zoomInButton.Click += (sender, e) =>
+            {
+                googleMap.AnimateCamera(CameraUpdateFactory.ZoomIn());
+            };
         }
 
-        void SetupZoomOutButton()
+        private void SetupZoomOutButton()
         {
             var zoomOutButton = FindViewById<Button>(Resource.Id.zoomOutButton);
-            zoomOutButton.Click += (sender, e) => { googleMap.AnimateCamera(CameraUpdateFactory.ZoomOut()); };
+            zoomOutButton.Click += (sender, e) =>
+            {
+                googleMap.AnimateCamera(CameraUpdateFactory.ZoomOut());
+            };
         }
+
+        #endregion
     }
 }

@@ -17,7 +17,6 @@
 
     using Mvvm;
 
-    using AndroidUri = Android.Net.Uri;
     using Messenger = GalaSoft.MvvmLight.Messaging.Messenger;
 
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -32,9 +31,9 @@
         // Keep track of bindings to avoid premature garbage collection
         private readonly List<Binding> _bindings = new List<Binding>();
 
-        private bool isGooglePlayServicesInstalled;
-        private SamplesListAdapter listAdapter;
-        private ListView listView;
+        private bool _isGooglePlayServicesInstalled;
+        private SamplesListAdapter _listAdapter;
+        private ListView _listView;
 
         #endregion
 
@@ -43,7 +42,7 @@
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             if (RC_INSTALL_GOOGLE_PLAY_SERVICES == requestCode && resultCode == Result.Ok)
-                isGooglePlayServicesInstalled = true;
+                _isGooglePlayServicesInstalled = true;
             else
                 Log.Warn(TAG, $"Don't know how to handle resultCode {resultCode} for request {requestCode}.");
         }
@@ -57,15 +56,12 @@
             // and sending a message back.
             Messenger.Default.Register<NotificationMessageAction<string>>(this, HandleNotificationMessage);
 
-            isGooglePlayServicesInstalled = TestIfGooglePlayServicesIsInstalled();
+            _isGooglePlayServicesInstalled = TestIfGooglePlayServicesIsInstalled();
 
             InitializeListView();
-        }
 
-        protected override void OnResume()
-        {
-            base.OnResume();
-            listView.ItemClick += SampleSelected;
+            _listView.ItemClick -= SampleSelected;
+            _listView.ItemClick += SampleSelected;
         }
 
         private void HandleNotificationMessage(NotificationMessageAction<string> message)
@@ -76,33 +72,26 @@
 
         private void InitializeListView()
         {
-            listView = FindViewById<ListView>(Resource.Id.listView);
-            if (isGooglePlayServicesInstalled)
+            _listView = FindViewById<ListView>(Resource.Id.listView);
+            if (_isGooglePlayServicesInstalled)
             {
-                listAdapter = new SamplesListAdapter(this, App.Locator.Main.SampleMetaDataList);
+                _listAdapter = new SamplesListAdapter(this, App.Locator.MainVm.SampleMetaDataList);
             }
             else
             {
                 Log.Error(TAG, "Google Play Services is not installed");
-                listAdapter = new SamplesListAdapter(this, null);
+                _listAdapter = new SamplesListAdapter(this, null);
             }
 
-            listView.Adapter = listAdapter;
+            _listView.Adapter = _listAdapter;
         }
 
         private void SampleSelected(object sender, AdapterView.ItemClickEventArgs e)
         {
             int position = e.Position;
-            //if (position == 0)
-            //{
-            //    AndroidUri geoUri = AndroidUri.Parse("geo:42.374260,-71.120824");
-            //    var mapIntent = new Intent(Intent.ActionView, geoUri);
-            //    StartActivity(mapIntent);
-            //    return;
-            //}
 
-            SampleActivityMetaData sampleToStart = App.Locator.Main.SampleMetaDataList[position];
-            sampleToStart.Start(this);
+            SampleActivityMetaData sampleToStart = App.Locator.MainVm.SampleMetaDataList[position];
+            App.Locator.MainVm.NavigateCommand.Execute(sampleToStart.NavId);
         }
 
         private bool TestIfGooglePlayServicesIsInstalled()
@@ -118,11 +107,6 @@
             {
                 string errorString = GoogleApiAvailability.Instance.GetErrorString(queryResult);
                 Log.Error(TAG, "There is a problem with Google Play Services on this device: {0} - {1}", queryResult, errorString);
-                Dialog errorDialog = GoogleApiAvailability.Instance.GetErrorDialog(this, queryResult, RC_INSTALL_GOOGLE_PLAY_SERVICES);
-                //var dialogFrag = new ErrorDialogFragment();
-                //dialogFrag.dial = errorDialog;
-
-                //dialogFrag.Show(FragmentManager, "GooglePlayServicesDialog");
             }
 
             return false;
