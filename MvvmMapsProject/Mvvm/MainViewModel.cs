@@ -2,7 +2,6 @@
 {
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
-    using GalaSoft.MvvmLight.Messaging;
     using GalaSoft.MvvmLight.Views;
 
     /// <summary>
@@ -16,10 +15,6 @@
         #region Fields
 
         private readonly INavigationService _navigationService;
-
-        private RelayCommand _sendMessageCommand;
-        private RelayCommand<string> _showDialogCommand;
-        private string _welcomeTitle = "Hello MVVM";
 
         #endregion
 
@@ -63,48 +58,5 @@
         }
 
         #endregion
-
-        /// <summary>
-        ///     Sets and gets the WelcomeTitle property.
-        ///     Changes to this property's value raise the PropertyChanged event.
-        ///     Use the "mvvminpc*" snippet group to create more such properties.
-        /// </summary>
-        public string WelcomeTitle
-        {
-            get
-            {
-                return _welcomeTitle;
-            }
-            set
-            {
-                Set(ref _welcomeTitle, value);
-            }
-        }
-
-        /// <summary>
-        ///     Gets the SendMessageCommand.
-        /// </summary>
-        public RelayCommand SendMessageCommand
-        {
-            get
-            {
-                return _sendMessageCommand ?? (_sendMessageCommand = new RelayCommand(
-                                                   () =>
-                                                   {
-                                                       // Any object can send messages.
-                                                       // For this simple demo, the message is received by App.xaml.cs
-                                                       // (see line 98).
-                                                       // This message type also allows a reply to be sent.
-
-                                                       Messenger.Default.Send(
-                                                           new NotificationMessageAction<string>(
-                                                               "AnyNotification",
-                                                               reply =>
-                                                               {
-                                                                   WelcomeTitle = reply;
-                                                               }));
-                                                   }));
-            }
-        }
     }
 }

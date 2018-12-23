@@ -7,5 +7,7 @@
   <string name="write_external_permissions_rationale">This sample requires permission to write to the external storage.</string>
   <string name="couldnt_find_any_marker">Could not find any markers</string>
   <string name="error">error</string>
+  <string name="googleServiceNotInstalled">Google Play Services is not installed</string>
+  
   <string name="ok">OK</string>
 </resources>

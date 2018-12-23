@@ -3561,14 +3561,17 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f08003f
 			public const int error = 2131230783;
 			
+			// aapt resource value: 0x7f080040
+			public const int googleServiceNotInstalled = 2131230784;
+			
 			// aapt resource value: 0x7f08003c
 			public const int location_permission_missing = 2131230780;
 			
 			// aapt resource value: 0x7f08003b
 			public const int location_permission_rationale = 2131230779;
 			
-			// aapt resource value: 0x7f080040
-			public const int ok = 2131230784;
+			// aapt resource value: 0x7f080041
+			public const int ok = 2131230785;
 			
 			// aapt resource value: 0x7f080032
 			public const int password_toggle_content_description = 2131230770;

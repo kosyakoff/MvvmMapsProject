@@ -1,5 +1,6 @@
 ﻿namespace MvvmMapsProject
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -29,7 +30,9 @@
 
     using Newtonsoft.Json;
 
-    using DateTime = System.DateTime;
+    using Utility;
+
+    using Environment = Android.OS.Environment;
     using Messenger = GalaSoft.MvvmLight.Messaging.Messenger;
 
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -46,7 +49,6 @@
 
         public static readonly int RC_INSTALL_GOOGLE_PLAY_SERVICES = 1000;
 
-        public static readonly string TAG = "XamarinMapDemo";
         protected static readonly string _defaultFilename = "markers.json";
 
         // Keep track of bindings to avoid premature garbage collection
@@ -60,7 +62,7 @@
 
         private TextView _searchMarkerEditText;
 
-        private GoogleMap googleMap;
+        private GoogleMap _googleMap;
 
         private static readonly string[] PERMISSIONS_TO_REQUEST =
         {
@@ -75,7 +77,7 @@
 
         public void OnMapReady(GoogleMap map)
         {
-            googleMap = map;
+            _googleMap = map;
 
             foreach (MarkerInfo markerInfo in _markers)
                 using (var markerOption = new MarkerOptions())
@@ -85,28 +87,35 @@
                     markerOption.SetSnippet(markerInfo.Address);
 
                     // save the "marker" variable returned if you need move, delete, update it, etc...
-                    Marker marker = googleMap.AddMarker(markerOption);
+                    Marker marker = _googleMap.AddMarker(markerOption);
                 }
 
             if (this.PerformRuntimePermissionCheckForLocation(REQUEST_PERMISSIONS_LOCATION))
+            {
                 InitializeUiSettingsOnMap();
+            }
 
-            googleMap.MapClick += HandleOnGoogleMapClick;
-            googleMap.MarkerClick += HandleOnGoogleMapMarkerClick;
+            _googleMap.MapClick += HandleOnGoogleMapClick;
+            _googleMap.MarkerClick += HandleOnGoogleMapMarkerClick;
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             if (RC_INSTALL_GOOGLE_PLAY_SERVICES == requestCode && resultCode == Result.Ok)
+            {
                 _isGooglePlayServicesInstalled = true;
+            }
             else
-                Log.Warn(TAG, $"Don't know how to handle resultCode {resultCode} for request {requestCode}.");
+            {
+                ShowErrorAsync($"Don't know how to handle resultCode {resultCode} for request {requestCode}.");
+            }
+              
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             App.Initialize();
-            
+
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.MapLayout);
 
@@ -115,24 +124,27 @@
             _searchMarkerButton.Click += HandleOnSearchMarkerButtonClick;
 
             if (Environment.MediaMounted.Equals(Environment.ExternalStorageState))
+            {
                 _filenameGenerator = new ExternalStorageFilenameGenerator(this);
+            }
             else
+            {
                 _filenameGenerator = new InternalCacheFilenameGenerator(this);
+            }
+                
+            if (RequestExternalStoragePermissionIfNecessary(RC_READ_EXTERNAL_STORAGE_PERMISSION))
+            {
+                string json = FileHelper.ReadFile(_filenameGenerator, _defaultFilename);
 
-            string json = ReadFile(_filenameGenerator);
-
-            if (!string.IsNullOrWhiteSpace(json))
-                _markers = JsonConvert.DeserializeObject<List<MarkerInfo>>(json);
-
-            // Illustrates how to use the Messenger by receiving a message
-            // and sending a message back.
-            Messenger.Default.Register<NotificationMessageAction<string>>(this, HandleNotificationMessage);
+                if (!string.IsNullOrWhiteSpace(json))
+                    _markers = JsonConvert.DeserializeObject<List<MarkerInfo>>(json);
+            }
 
             _isGooglePlayServicesInstalled = TestIfGooglePlayServicesIsInstalled();
 
             if (!_isGooglePlayServicesInstalled)
             {
-                Log.Error(TAG, "Google Play Services is not installed");
+                Log.Error(Resources.GetString(Resource.String.app_name), Resources.GetString(Resource.String.googleServiceNotInstalled));
                 return;
             }
 
@@ -142,43 +154,14 @@
             mapFragment.GetMapAsync(this);
         }
 
-        private async void HandleOnSearchMarkerButtonClick(object sender, System.EventArgs e)
-        {
-            var searchMarkerName = _searchMarkerEditText.Text;
-
-            var foundElement = _markers.FirstOrDefault(x => x.Title.Contains(searchMarkerName));
-
-            if (foundElement != null)
-            {
-                var builder = CameraPosition.InvokeBuilder();
-                builder.Target(new LatLng(foundElement.Latitude,foundElement.Longtitude));
-                builder.Zoom(10);
-                var cameraPosition = builder.Build();
-
-                // AnimateCamera provides a smooth, animation effect while moving
-                // the camera to the the position.
-                googleMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
-            }
-            else
-            {
-                var dialogService = (DialogService)SimpleIoc.Default.GetInstance<IDialogService>();
-               await dialogService.ShowError(Resources.GetString(Resource.String.couldnt_find_any_marker), Resources.GetString(Resource.String.error), Resources.GetString(Resource.String.ok), null);
-            }
-
-        }
-
-        private void HandleNotificationMessage(NotificationMessageAction<string> message)
-        {
-            // Execute a callback to send a reply to the sender.
-            message.Execute("Success! (from MainActivity.cs)");
-        }
-
         private async void HandleOnGoogleMapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
             if (!RequestExternalStoragePermissionIfNecessary(RC_WRITE_EXTERNAL_STORAGE_PERMISSION))
-                return;
+            {
+                return; 
+            }
 
-            Address address = await ReverseGeocodeCurrentLocation(e.Point);
+            Address address = await GeocodingHelper.ReverseGeocodeCurrentLocation(e.Point,this);
 
             var marker = new MarkerInfo
             {
@@ -190,7 +173,7 @@
 
             string markerString = JsonConvert.SerializeObject(marker);
 
-            App.Locator.MainVm.CreateNewMarkerCommand.Execute(markerString);
+            App.Locator.MainViewModel.CreateNewMarkerCommand.Execute(markerString);
         }
 
         private void HandleOnGoogleMapMarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
@@ -204,32 +187,55 @@
                 _markers.FirstOrDefault(x => x.Latitude == e.Marker.Position.Latitude && x.Longtitude == e.Marker.Position.Longitude);
 
             if (markerInfo == null)
-            {
                 return;
-            }
 
             string markerString = JsonConvert.SerializeObject(markerInfo);
 
-            App.Locator.MainVm.CreateNewMarkerCommand.Execute(markerString);
+            App.Locator.MainViewModel.CreateNewMarkerCommand.Execute(markerString);
+        }
+
+        private async void HandleOnSearchMarkerButtonClick(object sender, EventArgs e)
+        {
+            string searchMarkerName = _searchMarkerEditText.Text;
+
+            MarkerInfo foundElement = _markers.FirstOrDefault(x => x.Title.Contains(searchMarkerName));
+
+            if (foundElement != null)
+            {
+                CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
+                builder.Target(new LatLng(foundElement.Latitude, foundElement.Longtitude));
+                builder.Zoom(10);
+                CameraPosition cameraPosition = builder.Build();
+
+                // AnimateCamera provides a smooth, animation effect while moving
+                // the camera to the the position.
+                _googleMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
+            }
+            else
+            {
+                await ShowErrorAsync(Resources.GetString(Resource.String.couldnt_find_any_marker));
+            }
+        }
+
+        private async Task ShowErrorAsync(string errorString)
+        {
+            var dialogService = (DialogService)SimpleIoc.Default.GetInstance<IDialogService>();
+            await dialogService.ShowError(
+                errorString,
+                Resources.GetString(Resource.String.error),
+                Resources.GetString(Resource.String.ok),
+                null);
         }
 
         private void InitializeUiSettingsOnMap()
         {
-            googleMap.UiSettings.MyLocationButtonEnabled = true;
-            googleMap.UiSettings.CompassEnabled = true;
-            googleMap.UiSettings.ZoomControlsEnabled = true;
-            googleMap.MyLocationEnabled = true;
+            _googleMap.UiSettings.MyLocationButtonEnabled = true;
+            _googleMap.UiSettings.CompassEnabled = true;
+            _googleMap.UiSettings.ZoomControlsEnabled = true;
+            _googleMap.MyLocationEnabled = true;
         }
 
-        private string ReadFile(IGenerateNameOfFile fileName)
-        {
-            string backingFile = fileName.GetAbsolutePathToFile(_defaultFilename);
 
-            if (backingFile == null)
-                return string.Empty;
-
-            return File.ReadAllText(backingFile);
-        }
 
         private void ReceiveMarkerInfo(MarkerMessage message)
         {
@@ -246,7 +252,7 @@
                         markerOption.SetSnippet(markerInfo.Address);
 
                         // save the "marker" variable returned if you need move, delete, update it, etc...
-                        Marker marker = googleMap.AddMarker(markerOption);
+                        Marker marker = _googleMap.AddMarker(markerOption);
 
                         _markers.Add(markerInfo);
                     }
@@ -260,7 +266,7 @@
 
                     string json = JsonConvert.SerializeObject(_markers, Formatting.Indented);
 
-                    WriteFile(_filenameGenerator, json);
+                    FileHelper.WriteFile(_filenameGenerator,_defaultFilename, json);
                 }
         }
 
@@ -292,47 +298,31 @@
                 return false;
             }
 
-            Log.Warn(TAG, "External storage is not mounted; cannot request permission");
+            Log.Warn(Resources.GetString(Resource.String.app_name), "External storage is not mounted; cannot request permission");
             return false;
         }
 
-        private async Task<Address> ReverseGeocodeCurrentLocation(LatLng point)
-        {
-            var geocoder = new Geocoder(this);
-            IList<Address> addressList = await geocoder.GetFromLocationAsync(point.Latitude, point.Longitude, 10);
 
-            Address address = addressList.FirstOrDefault();
-            return address;
-        }
 
         private bool TestIfGooglePlayServicesIsInstalled()
         {
             int queryResult = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
             if (queryResult == ConnectionResult.Success)
             {
-                Log.Info(TAG, "Google Play Services is installed on this device.");
+                Log.Info(Resources.GetString(Resource.String.app_name), "Google Play Services is installed on this device.");
                 return true;
             }
 
             if (GoogleApiAvailability.Instance.IsUserResolvableError(queryResult))
             {
                 string errorString = GoogleApiAvailability.Instance.GetErrorString(queryResult);
-                Log.Error(TAG, "There is a problem with Google Play Services on this device: {0} - {1}", queryResult, errorString);
+                Log.Error(Resources.GetString(Resource.String.app_name), "There is a problem with Google Play Services on this device: {0} - {1}", queryResult, errorString);
             }
 
             return false;
         }
 
-        private void WriteFile(IGenerateNameOfFile fileName, string json)
-        {
-            string backingFile = fileName.GetAbsolutePathToFile(_defaultFilename);
 
-            if (backingFile == null)
-                return;
-            File.WriteAllText(backingFile, json);
-
-            string sub = File.ReadAllText(backingFile);
-        }
 
         #endregion
     }

@@ -56,16 +56,18 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateMarkerActivity.cs" />
-    <Compile Include="ExternalStorageFilenameGenerator.cs" />
-    <Compile Include="GoogleMapHelpers.cs" />
-    <Compile Include="IGenerateNameOfFile.cs" />
-    <Compile Include="InternalCacheFilenameGenerator.cs" />
+    <Compile Include="Activities\CreateMarkerActivity.cs" />
+    <Compile Include="Utility\ExternalStorageFilenameGenerator.cs" />
+    <Compile Include="Utility\FileHelper.cs" />
+    <Compile Include="Utility\GeocodingHelper.cs" />
+    <Compile Include="Utility\GoogleMapHelpers.cs" />
+    <Compile Include="Utility\IGenerateNameOfFile.cs" />
+    <Compile Include="Utility\InternalCacheFilenameGenerator.cs" />
     <Compile Include="Model\MarkerInfo.cs" />
     <Compile Include="Model\MarkerMessage.cs" />
     <Compile Include="Mvvm\App.cs" />
-    <Compile Include="NavigationKeys.cs" />
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="Constants\NavigationKeys.cs" />
+    <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Mvvm\MainViewModel.cs" />
     <Compile Include="Mvvm\ViewModelLocator.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -115,10 +117,7 @@
       <Version>60.1142.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\menu\" />
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MapLayout.axml">
       <SubType>Designer</SubType>

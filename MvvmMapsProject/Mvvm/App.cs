@@ -8,8 +8,9 @@
     {
         #region Fields
 
+        private static bool _isInitialized;
+
         private static ViewModelLocator _locator;
-        private static bool _isInitailized;
 
         #endregion
 
@@ -17,13 +18,11 @@
 
         public static void Initialize()
         {
-            if (_isInitailized)
-            {
+            if (_isInitialized)
                 return;
-            }
 
-            _isInitailized = true;
-            
+            _isInitialized = true;
+
             // Initialize the MVVM Light DispatcherHelper.
             // This needs to be called on the UI thread.
             DispatcherHelper.Initialize();
@@ -32,7 +31,7 @@
 
             SetNavigation((NavigationService)SimpleIoc.Default.GetInstance<INavigationService>());
         }
-        
+
         private static void Registration()
         {
             // Configure and register the MVVM Light NavigationService
@@ -40,9 +39,9 @@
 
             SimpleIoc.Default.Register<INavigationService>(() => navigationService);
             // Register the MVVM Light DialogService
-            
+
             var dialogService = new DialogService();
-            
+
             SimpleIoc.Default.Register<IDialogService>(() => dialogService);
         }
 

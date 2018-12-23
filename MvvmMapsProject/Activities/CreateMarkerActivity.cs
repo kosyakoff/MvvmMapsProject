@@ -22,12 +22,12 @@
         #region Fields
 
         private NavigationService _navigationService;
-        private TextView addressText;
-        private TextView lastModifiedText;
-        private TextView latitudeText;
-        private TextView longtitudeText;
-        private EditText snippetEditText;
-        private EditText titleEditText;
+        private TextView _addressText;
+        private TextView _lastModifiedText;
+        private TextView _latitudeText;
+        private TextView _longtitudeText;
+        private EditText _snippetEditText;
+        private EditText _titleEditText;
 
         #endregion
 
@@ -52,41 +52,39 @@
             {
                 var marker = JsonConvert.DeserializeObject<MarkerInfo>(parameter);
 
-                longtitudeText = FindViewById<TextView>(Resource.Id.longitudeText);
-                longtitudeText.Text = marker.Longtitude.ToString();
+                _longtitudeText = FindViewById<TextView>(Resource.Id.longitudeText);
+                _longtitudeText.Text = marker.Longtitude.ToString();
 
-                latitudeText = FindViewById<TextView>(Resource.Id.latitudeText);
-                latitudeText.Text = marker.Latitude.ToString();
+                _latitudeText = FindViewById<TextView>(Resource.Id.latitudeText);
+                _latitudeText.Text = marker.Latitude.ToString();
 
-                addressText = FindViewById<TextView>(Resource.Id.addressText);
+                _addressText = FindViewById<TextView>(Resource.Id.addressText);
 
-                addressText.Text = marker.Address;
+                _addressText.Text = marker.Address;
 
-                lastModifiedText = FindViewById<TextView>(Resource.Id.lastModifiedText);
+                _lastModifiedText = FindViewById<TextView>(Resource.Id.lastModifiedText);
 
-                lastModifiedText.Text = marker.LastModData.ToString();
+                _lastModifiedText.Text = marker.LastModData.ToString();
 
-                titleEditText = FindViewById<EditText>(Resource.Id.titleEditText);
+                _titleEditText = FindViewById<EditText>(Resource.Id.titleEditText);
 
-                titleEditText.Text = marker.Title;
+                _titleEditText.Text = marker.Title;
 
-                snippetEditText = FindViewById<EditText>(Resource.Id.snippetEditText);
+                _snippetEditText = FindViewById<EditText>(Resource.Id.snippetEditText);
 
-                snippetEditText.Text = marker.Snippet;
+                _snippetEditText.Text = marker.Snippet;
             }
-
-            // Create your application here
         }
 
         private void ApplyButton_Click(object sender, EventArgs e)
         {
             var markerInfo = new MarkerInfo
             {
-                Address = addressText.Text,
-                Latitude = double.Parse(latitudeText.Text),
-                Longtitude = double.Parse(longtitudeText.Text),
-                Title = titleEditText.Text,
-                Snippet = snippetEditText.Text,
+                Address = _addressText.Text,
+                Latitude = double.Parse(_latitudeText.Text),
+                Longtitude = double.Parse(_longtitudeText.Text),
+                Title = _titleEditText.Text,
+                Snippet = _snippetEditText.Text,
                 LastModData = DateTime.Now
             };
             var markerMessage = new MarkerMessage
