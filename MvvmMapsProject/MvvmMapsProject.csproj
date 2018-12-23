@@ -56,7 +56,11 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mvvm\App.cs" />
+    <Compile Include="ValueConstants.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Mvvm\MainViewModel.cs" />
+    <Compile Include="Mvvm\ViewModelLocator.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
