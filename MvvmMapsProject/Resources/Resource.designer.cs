@@ -2528,8 +2528,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0042
 			public const int SYM = 2131427394;
 			
-			// aapt resource value: 0x7f0b00b8
-			public const int action0 = 2131427512;
+			// aapt resource value: 0x7f0b00b9
+			public const int action0 = 2131427513;
 			
 			// aapt resource value: 0x7f0b0086
 			public const int action_bar = 2131427462;
@@ -2552,17 +2552,17 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0064
 			public const int action_bar_title = 2131427428;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int action_container = 2131427509;
+			// aapt resource value: 0x7f0b00b6
+			public const int action_container = 2131427510;
 			
 			// aapt resource value: 0x7f0b0087
 			public const int action_context_bar = 2131427463;
 			
-			// aapt resource value: 0x7f0b00bc
-			public const int action_divider = 2131427516;
+			// aapt resource value: 0x7f0b00bd
+			public const int action_divider = 2131427517;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int action_image = 2131427510;
+			// aapt resource value: 0x7f0b00b7
+			public const int action_image = 2131427511;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -2579,11 +2579,11 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0066
 			public const int action_mode_close_button = 2131427430;
 			
-			// aapt resource value: 0x7f0b00b7
-			public const int action_text = 2131427511;
+			// aapt resource value: 0x7f0b00b8
+			public const int action_text = 2131427512;
 			
-			// aapt resource value: 0x7f0b00c5
-			public const int actions = 2131427525;
+			// aapt resource value: 0x7f0b00c6
+			public const int actions = 2131427526;
 			
 			// aapt resource value: 0x7f0b0067
 			public const int activity_chooser_view_content = 2131427431;
@@ -2633,8 +2633,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b00a3
 			public const int cancelButton = 2131427491;
 			
-			// aapt resource value: 0x7f0b00b9
-			public const int cancel_action = 2131427513;
+			// aapt resource value: 0x7f0b00ba
+			public const int cancel_action = 2131427514;
 			
 			// aapt resource value: 0x7f0b004f
 			public const int center = 2131427407;
@@ -2648,8 +2648,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b007d
 			public const int checkbox = 2131427453;
 			
-			// aapt resource value: 0x7f0b00c1
-			public const int chronometer = 2131427521;
+			// aapt resource value: 0x7f0b00c2
+			public const int chronometer = 2131427522;
 			
 			// aapt resource value: 0x7f0b0058
 			public const int clip_horizontal = 2131427416;
@@ -2668,6 +2668,9 @@ namespace MvvmMapsProject
 			
 			// aapt resource value: 0x7f0b00a7
 			public const int coordinator = 2131427495;
+			
+			// aapt resource value: 0x7f0b00b4
+			public const int currentLocationButton = 2131427508;
 			
 			// aapt resource value: 0x7f0b0077
 			public const int custom = 2131427447;
@@ -2708,8 +2711,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b003b
 			public const int end = 2131427387;
 			
-			// aapt resource value: 0x7f0b00c7
-			public const int end_padder = 2131427527;
+			// aapt resource value: 0x7f0b00c8
+			public const int end_padder = 2131427528;
 			
 			// aapt resource value: 0x7f0b004a
 			public const int enterAlways = 2131427402;
@@ -2756,8 +2759,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b006c
 			public const int icon = 2131427436;
 			
-			// aapt resource value: 0x7f0b00c6
-			public const int icon_group = 2131427526;
+			// aapt resource value: 0x7f0b00c7
+			public const int icon_group = 2131427527;
 			
 			// aapt resource value: 0x7f0b0024
 			public const int icon_only = 2131427364;
@@ -2768,8 +2771,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0069
 			public const int image = 2131427433;
 			
-			// aapt resource value: 0x7f0b00c2
-			public const int info = 2131427522;
+			// aapt resource value: 0x7f0b00c3
+			public const int info = 2131427523;
 			
 			// aapt resource value: 0x7f0b0063
 			public const int italic = 2131427427;
@@ -2810,17 +2813,17 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0096
 			public const int longitudeText = 2131427478;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int map = 2131427508;
+			// aapt resource value: 0x7f0b00b5
+			public const int map = 2131427509;
 			
-			// aapt resource value: 0x7f0b00ca
-			public const int masked = 2131427530;
+			// aapt resource value: 0x7f0b00cb
+			public const int masked = 2131427531;
 			
-			// aapt resource value: 0x7f0b00bb
-			public const int media_actions = 2131427515;
+			// aapt resource value: 0x7f0b00bc
+			public const int media_actions = 2131427516;
 			
-			// aapt resource value: 0x7f0b00c8
-			public const int message = 2131427528;
+			// aapt resource value: 0x7f0b00c9
+			public const int message = 2131427529;
 			
 			// aapt resource value: 0x7f0b003c
 			public const int middle = 2131427388;
@@ -2843,14 +2846,14 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b001f
 			public const int normal = 2131427359;
 			
-			// aapt resource value: 0x7f0b00c4
-			public const int notification_background = 2131427524;
+			// aapt resource value: 0x7f0b00c5
+			public const int notification_background = 2131427525;
+			
+			// aapt resource value: 0x7f0b00bf
+			public const int notification_main_column = 2131427519;
 			
 			// aapt resource value: 0x7f0b00be
-			public const int notification_main_column = 2131427518;
-			
-			// aapt resource value: 0x7f0b00bd
-			public const int notification_main_column_container = 2131427517;
+			public const int notification_main_column_container = 2131427518;
 			
 			// aapt resource value: 0x7f0b0056
 			public const int parallax = 2131427414;
@@ -2876,11 +2879,11 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0054
 			public const int right = 2131427412;
 			
-			// aapt resource value: 0x7f0b00c3
-			public const int right_icon = 2131427523;
+			// aapt resource value: 0x7f0b00c4
+			public const int right_icon = 2131427524;
 			
-			// aapt resource value: 0x7f0b00bf
-			public const int right_side = 2131427519;
+			// aapt resource value: 0x7f0b00c0
+			public const int right_side = 2131427520;
 			
 			// aapt resource value: 0x7f0b0020
 			public const int satellite = 2131427360;
@@ -2999,8 +3002,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0055
 			public const int start = 2131427413;
 			
-			// aapt resource value: 0x7f0b00ba
-			public const int status_bar_latest_event_content = 2131427514;
+			// aapt resource value: 0x7f0b00bb
+			public const int status_bar_latest_event_content = 2131427515;
 			
 			// aapt resource value: 0x7f0b0080
 			public const int submenuarrow = 2131427456;
@@ -3056,8 +3059,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0015
 			public const int textinput_error = 2131427349;
 			
-			// aapt resource value: 0x7f0b00c0
-			public const int time = 2131427520;
+			// aapt resource value: 0x7f0b00c1
+			public const int time = 2131427521;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int title = 2131427356;
@@ -3107,8 +3110,8 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f0b0016
 			public const int view_offset_helper = 2131427350;
 			
-			// aapt resource value: 0x7f0b00c9
-			public const int visible = 2131427529;
+			// aapt resource value: 0x7f0b00ca
+			public const int visible = 2131427530;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int wide = 2131427366;

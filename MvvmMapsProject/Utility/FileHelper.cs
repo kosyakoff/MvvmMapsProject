@@ -30,7 +30,7 @@ namespace MvvmMapsProject.Utility
         {
             string backingFile = filePath.GetAbsolutePathToFile(fileName);
 
-            if (backingFile == null)
+            if (backingFile == null || !File.Exists(backingFile))
                 return string.Empty;
 
             return File.ReadAllText(backingFile);
