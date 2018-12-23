@@ -19,6 +19,8 @@
         private static readonly LatLng PasschendaeleLatLng = new LatLng(50.897778, 3.013333);
         private static readonly LatLng VimyRidgeLatLng = new LatLng(50.379444, 2.773611);
 
+        static readonly int REQUEST_PERMISSIONS_LOCATION = 1000;
+
         #endregion
 
         #region Methods
@@ -27,11 +29,36 @@
         {
             googleMap = map;
 
-            googleMap.UiSettings.ZoomControlsEnabled = true;
-            googleMap.UiSettings.CompassEnabled = true;
-            googleMap.UiSettings.MyLocationButtonEnabled = false;
+            if (this.PerformRuntimePermissionCheckForLocation(REQUEST_PERMISSIONS_LOCATION))
+            {
+                InitializeUiSettingsOnMap();
+            }
+
+            googleMap.MapClick += GoogleMap_MapClick;
+
             AddMarkersToMap();
             animateToLocationButton.Click += AnimateToPasschendaele;
+        }
+
+        void InitializeUiSettingsOnMap()
+        {
+            googleMap.UiSettings.MyLocationButtonEnabled = true;
+            googleMap.UiSettings.CompassEnabled = true;
+            googleMap.UiSettings.ZoomControlsEnabled = true;
+            googleMap.MyLocationEnabled = true;
+        }
+
+
+
+        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        {
+            using (var markerOption = new MarkerOptions())
+            {
+                markerOption.SetPosition(e.Point);
+                markerOption.SetTitle("StackOverflow");
+                // save the "marker" variable returned if you need move, delete, update it, etc...
+                var marker = googleMap.AddMarker(markerOption);
+            }
         }
 
         protected override void OnCreate(Bundle bundle)

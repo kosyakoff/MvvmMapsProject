@@ -2,4 +2,7 @@
     <string name="app_name">Mvvm Maps Project</string>
   <string name="activity_label_mapwithmarkers">Markers Demo</string>
   <string name="activity_description_mapwithmarkers">Shows how to add some markers.</string>
+  <string name="location_permission_rationale">This activity requires permission to use the GPS to determine your location.</string>
+  <string name="location_permission_missing">This activity is missing permission to use the GPS. Closing. </string>
+  <string name="ok">OK</string>
 </resources>

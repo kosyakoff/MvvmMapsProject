@@ -3522,6 +3522,15 @@ namespace MvvmMapsProject
 			// aapt resource value: 0x7f080010
 			public const int common_signin_button_text_long = 2131230736;
 			
+			// aapt resource value: 0x7f08003c
+			public const int location_permission_missing = 2131230780;
+			
+			// aapt resource value: 0x7f08003b
+			public const int location_permission_rationale = 2131230779;
+			
+			// aapt resource value: 0x7f08003d
+			public const int ok = 2131230781;
+			
 			// aapt resource value: 0x7f080032
 			public const int password_toggle_content_description = 2131230770;
 			
