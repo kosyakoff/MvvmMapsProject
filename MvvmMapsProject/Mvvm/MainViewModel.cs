@@ -1,9 +1,13 @@
 ﻿namespace MvvmMapsProject.Mvvm
 {
+    using System.Collections.Generic;
+
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
     using GalaSoft.MvvmLight.Messaging;
     using GalaSoft.MvvmLight.Views;
+
+    using Model;
 
     /// <summary>
     ///     This class contains properties that the main View can data bind to.
@@ -35,6 +39,15 @@
             _navigationService = navigationService;
         }
 
+        public readonly List<SampleActivityMetaData> SampleMetaDataList = new List<SampleActivityMetaData>
+                                                                          {
+                                                                                  new SampleActivityMetaData(Resource.String.activity_label_mapwithmarkers,
+                                                                                                         Resource
+                                                                                                             .String
+                                                                                                             .activity_description_mapwithmarkers,
+                                                                                                         typeof(MapWithMarkersActivity)),
+                                                                            };
+
         #endregion
 
         /// <summary>
@@ -51,6 +64,7 @@
                                                     parameter => _navigationService.NavigateTo(ValueConstants.SecondPageKey, parameter)));
             }
         }
+        
 
         /// <summary>
         ///     Sets and gets the WelcomeTitle property.

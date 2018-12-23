@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Mvvm Maps Project</string>
+  <string name="activity_label_mapwithmarkers">Markers Demo</string>
+  <string name="activity_description_mapwithmarkers">Shows how to add some markers.</string>
 </resources>
